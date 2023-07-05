@@ -11,11 +11,11 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path={'/dashboard'} element={<Dashboard/>}/>
-        <Route path={'/create'} element={<CreateUser/>}/>
-        <Route path={'/update/:id'} element={<UpdateUser/>}/>
-        <Route path={'/user/:id'} element={<SingleUser/>}/>
-        <Route path="*" element={<Navigate to="/dashboard" />} />
+          <Route path={'/dashboard'} element={<Dashboard/>}/>
+          <Route path={'/create'} element={<CreateUser/>}/>
+          <Route path={'/update/:id'} element={<UpdateUser/>}/>
+          <Route path={'/user/:id'} element={<SingleUser/>}/>
+          <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
     </div>
   );

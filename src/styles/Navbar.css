@@ -1,0 +1,27 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 0 20px;
+    background-color: #f0e6fa;
+}
+
+.navbar-header {
+    font-size: 26px;
+    margin-right: 40px;
+    font-style: italic;
+    /* Add additional styling as needed */
+}
+
+.navbar-button {
+    background-color: #ff4757;
+    border-color: #ff4757;
+    color: #fff;
+}
+
+.navbar-actions .navbar-button:hover,
+.navbar-actions .navbar-button:focus {
+    background-color: #ff2f48;
+    border-color: #ff2f48;
+}

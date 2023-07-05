@@ -1,0 +1,20 @@
+.customer-table {
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f0f2f5;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .customer-table {
+        padding: 10px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .customer-table {
+        padding: 5px;
+        margin-top: 5px;
+    }
+}
