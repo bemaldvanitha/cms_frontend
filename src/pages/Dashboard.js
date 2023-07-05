@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { Table, Button, Space, Empty } from "antd";
 import axios from "axios";
 
@@ -6,6 +7,7 @@ import '../styles/Dashboard.css';
 
 const Dashboard = () => {
     const [customers, setCustomers] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -52,12 +54,12 @@ const Dashboard = () => {
     ];
 
     const handleEdit = (record) => {
-
+        navigate(`/update/${record.id}`)
         console.log('Edit record:', record);
     };
 
     const handleView = (record) => {
-
+        navigate(`/user/${record.id}`);
         console.log('View record:', record);
     };
 

@@ -1,0 +1,62 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 400px;
+    margin: 20px auto 0;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #F8F8FF;
+}
+
+.customer-button {
+    background-color: darksalmon;
+    color: white;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-row .form-row-inner {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.form-address {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-address .form-address-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.form-address .form-address-row:last-child {
+    justify-content: flex-end;
+}
+
+.button-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+}
+
+.button-container button {
+    margin-left: 0.5rem;
+}
