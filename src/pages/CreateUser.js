@@ -6,6 +6,7 @@ import '../styles/CreateUser.css';
 
 import { addNewUser } from '../helpers/addNewUser';
 import CustomAlert from "../components/CustomAlert";
+import AddDataFromExcel from "../components/AddDataFromExcel";
 
 const CreateUser = () => {
     const navigate = useNavigate();
@@ -92,69 +93,72 @@ const CreateUser = () => {
     };
 
     return(
-        <div className="form-container">
-            {showAlert && <CustomAlert description={'Name, Birth date, NIC number are required'}/>}
+        <div>
+            <AddDataFromExcel/>
+            <div className="form-container">
+                {showAlert && <CustomAlert description={'Name, Birth date, NIC number are required'}/>}
 
-            <div className="form-row">
-                <Input placeholder={"enter your name"} id="name" value={name} onChange={handleNameChange} />
-            </div>
-
-            <div className="form-row">
-                <DatePicker placeholder={'select your birth day'} id="dateOfBirth" value={dateOfBirth}
-                            onChange={handleDateOfBirthChange} />
-            </div>
-
-            <div className="form-row">
-                <Input placeholder={'enter your NIC number'} id="nicNumber" value={nicNumber}
-                       onChange={handleNicNumberChange} />
-            </div>
-
-            <div className="form-row">
-                {mobileNumbers.map((number, index) => (
-                    <div key={index} className="form-row-inner">
-                        <Input placeholder={'enter your mobile phone number'} value={number}
-                               onChange={(e) => handleMobileNumberChange(index, e)} />
-                        <Button onClick={() => handleRemoveMobileNumber(index)}>Remove</Button>
-                    </div>
-                ))}
-                <div className={'button-container'}>
-                    <Button className={'customer-button'} onClick={handleAddMobileNumber}>Add Mobile Number</Button>
+                <div className="form-row">
+                    <Input placeholder={"enter your name"} id="name" value={name} onChange={handleNameChange} />
                 </div>
-            </div>
 
-            <div className="form-row">
-                {familyMembers.map((member, index) => (
-                    <div key={index} className="form-row-inner">
-                        <Input placeholder={'enter family member name'} value={member}
-                               onChange={(e) => handleFamilyMemberChange(index, e)} />
-                        <Button onClick={() => handleRemoveFamilyMember(index)}>Remove</Button>
-                    </div>
-                ))}
-                <div className={'button-container'}>
-                    <Button className={'customer-button'} onClick={handleAddFamilyMember}>Add Family Member</Button>
+                <div className="form-row">
+                    <DatePicker placeholder={'select your birth day'} id="dateOfBirth" value={dateOfBirth}
+                                onChange={handleDateOfBirthChange} />
                 </div>
-            </div>
 
-            <div className="form-row">
-                {addresses.map((address, index) => (
-                    <div key={index} className="form-address">
-                        <div className="form-address-row">
-                            <Input value={address.addressLine1} onChange={(e) => handleAddressChange(index, 'addressLine1', e.target.value)} placeholder="Address Line 1" />
+                <div className="form-row">
+                    <Input placeholder={'enter your NIC number'} id="nicNumber" value={nicNumber}
+                           onChange={handleNicNumberChange} />
+                </div>
+
+                <div className="form-row">
+                    {mobileNumbers.map((number, index) => (
+                        <div key={index} className="form-row-inner">
+                            <Input placeholder={'enter your mobile phone number'} value={number}
+                                   onChange={(e) => handleMobileNumberChange(index, e)} />
+                            <Button onClick={() => handleRemoveMobileNumber(index)}>Remove</Button>
                         </div>
-                        <div className="form-address-row">
-                            <Input value={address.addressLine2} onChange={(e) => handleAddressChange(index, 'addressLine2', e.target.value)} placeholder="Address Line 2" />
-                        </div>
-                        <div className="form-address-row">
-                            <Input value={address.city} onChange={(e) => handleAddressChange(index, 'city', e.target.value)} placeholder="City" />
-                            <Input value={address.country} onChange={(e) => handleAddressChange(index, 'country', e.target.value)} placeholder="Country" />
-                            <Button onClick={() => handleRemoveAddress(index)}>Remove</Button>
-                        </div>
+                    ))}
+                    <div className={'button-container'}>
+                        <Button className={'customer-button'} onClick={handleAddMobileNumber}>Add Mobile Number</Button>
                     </div>
-                ))}
-                <Button onClick={handleAddAddress} className={'customer-button'}>Add Address</Button>
-            </div>
+                </div>
 
-            <Button onClick={handleSubmit} className={'customer-button'}>Submit</Button>
+                <div className="form-row">
+                    {familyMembers.map((member, index) => (
+                        <div key={index} className="form-row-inner">
+                            <Input placeholder={'enter family member name'} value={member}
+                                   onChange={(e) => handleFamilyMemberChange(index, e)} />
+                            <Button onClick={() => handleRemoveFamilyMember(index)}>Remove</Button>
+                        </div>
+                    ))}
+                    <div className={'button-container'}>
+                        <Button className={'customer-button'} onClick={handleAddFamilyMember}>Add Family Member</Button>
+                    </div>
+                </div>
+
+                <div className="form-row">
+                    {addresses.map((address, index) => (
+                        <div key={index} className="form-address">
+                            <div className="form-address-row">
+                                <Input value={address.addressLine1} onChange={(e) => handleAddressChange(index, 'addressLine1', e.target.value)} placeholder="Address Line 1" />
+                            </div>
+                            <div className="form-address-row">
+                                <Input value={address.addressLine2} onChange={(e) => handleAddressChange(index, 'addressLine2', e.target.value)} placeholder="Address Line 2" />
+                            </div>
+                            <div className="form-address-row">
+                                <Input value={address.city} onChange={(e) => handleAddressChange(index, 'city', e.target.value)} placeholder="City" />
+                                <Input value={address.country} onChange={(e) => handleAddressChange(index, 'country', e.target.value)} placeholder="Country" />
+                                <Button onClick={() => handleRemoveAddress(index)}>Remove</Button>
+                            </div>
+                        </div>
+                    ))}
+                    <Button onClick={handleAddAddress} className={'customer-button'}>Add Address</Button>
+                </div>
+
+                <Button onClick={handleSubmit} className={'customer-button'}>Submit</Button>
+            </div>
         </div>
     )
 }
