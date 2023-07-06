@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { Input, DatePicker, Button, Alert } from 'antd';
-import axios from "axios";
+import { Input, DatePicker, Button } from 'antd';
 
 import '../styles/CreateUser.css';
 
+import { addNewUser } from '../helpers/addNewUser';
 import CustomAlert from "../components/CustomAlert";
 
 const CreateUser = () => {
@@ -83,37 +83,10 @@ const CreateUser = () => {
             setShowAlert(true);
         }else{
             try{
-                let modifiedNumbers = [];
-                let modifiedFamilyMembers = [];
-                let birthDayArr = dateOfBirth.toString().split(' ');
-                let modifiedBirthDate = `${birthDayArr[1]} ${birthDayArr[2]} ${birthDayArr[3]}`;
-
-                mobileNumbers.forEach(number => {
-                    modifiedNumbers.push({
-                        "number": number.toString()
-                    });
-                });
-
-                familyMembers.forEach(member => {
-                    modifiedFamilyMembers.push({
-                        "name": member
-                    });
-                });
-
-                let customer = {
-                    name: name,
-                    dateOfBirth: modifiedBirthDate,
-                    nicNumber: nicNumber,
-                    telephoneNumbers: [...modifiedNumbers],
-                    addresses: [...addresses],
-                    familyMembers: [...modifiedFamilyMembers]
-                }
-
-                console.log(customer)
-                await axios.post(`http://localhost:8080/api/customers`, customer);
+                await addNewUser(name, dateOfBirth, nicNumber, mobileNumbers, familyMembers, addresses);
                 navigate('/dashboard');
             }catch (err){
-                console.error(err)
+                console.error(err);
             }
         }
     };

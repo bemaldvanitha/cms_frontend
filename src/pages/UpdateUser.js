@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { Alert, Button, DatePicker, Input } from "antd";
+import { Button, DatePicker, Input } from "antd";
 
 import '../styles/SingleUser.css';
 
+import { fetchUserData } from '../helpers/fetchOneRecord';
 import CustomAlert from "../components/CustomAlert";
+import { updateExistingUser } from '../helpers/updateExistingUser';
 
 const UpdateUser = () => {
     const { id } = useParams();
@@ -19,53 +20,29 @@ const UpdateUser = () => {
     const [telephoneNumbers, setTelephoneNumbers] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
 
-    const fetchUserData = async () => {
-        try{
-            const response = await axios.get(`http://localhost:8080/api/customers/${id}`);
-            const data = response.data;
+    const fetchSingleUserData = async () => {
+        let updatedAddress = [];
+        const { name, nic, birthDay, formatTelephoneNumber, formatAddress, formatFamilyMembers } = await fetchUserData(id);
 
-            setName(data.name);
-            setDateOfBirth(data.dateOfBirth);
-            setNicNumber(data.nicNumber);
+        formatAddress.forEach(addr => {
+            const address = {
+                id: addr.id,
+                addressLine1: addr.addressLine1,
+                addressLine2: addr.addressLine2,
+            }
+            updatedAddress.push(address);
+        });
 
-            let formatAddress = [];
-            data.addresses.forEach(addr => {
-                const address = {
-                    id: addr.id,
-                    addressLine1: addr.addressLine1,
-                    addressLine2: addr.addressLine2,
-                }
-                formatAddress.push(address)
-            });
-            setAddresses(formatAddress);
-
-            let formatFamilyMembers = [];
-            data.familyMembers.forEach(family => {
-                const familyMember = {
-                    id: family.id,
-                    name: family.name
-                }
-                formatFamilyMembers.push(familyMember);
-            });
-            setFamilyMembers(formatFamilyMembers);
-
-            let formatTelephoneNumber = [];
-            data.telephoneNumbers.forEach(tele => {
-                const phone = {
-                    id: tele.id,
-                    number: tele.number
-                }
-                formatTelephoneNumber.push(phone);
-            });
-            setTelephoneNumbers(formatTelephoneNumber);
-            //console.log(name, nicNumber, dateOfBirth, addresses, familyMembers, telephoneNumbers)
-        }catch (err){
-            console.error(err);
-        }
+        setName(name);
+        setNicNumber(nic);
+        setDateOfBirth(birthDay);
+        setTelephoneNumbers(formatTelephoneNumber);
+        setAddresses(updatedAddress);
+        setFamilyMembers(formatFamilyMembers)
     }
 
     useEffect(() => {
-        fetchUserData();
+        fetchSingleUserData();
     },[id]);
 
     const handleNameChange = (e) => {
@@ -100,26 +77,7 @@ const UpdateUser = () => {
             setShowAlert(true);
         }else{
             try{
-                let modifiedBirthDate = '';
-
-                if(birthDay !== null){
-                    let birthDayArr = birthDay.toString().split(' ');
-                    modifiedBirthDate = `${birthDayArr[1]} ${birthDayArr[2]} ${birthDayArr[3]}`;
-                }else {
-                    modifiedBirthDate = dateOfBirth;
-                }
-
-                let customer = {
-                    name: name,
-                    dateOfBirth: modifiedBirthDate,
-                    nicNumber: nicNumber,
-                    telephoneNumbers: telephoneNumbers,
-                    addresses: addresses,
-                    familyMembers: familyMembers
-                }
-
-                console.log(customer);
-                await axios.patch(`http://localhost:8080/api/customers/${id}`, customer);
+                await updateExistingUser(id, name, birthDay, dateOfBirth, nicNumber, telephoneNumbers, addresses, familyMembers);
                 navigate('/dashboard');
             }catch (err){
                 console.error(err);
