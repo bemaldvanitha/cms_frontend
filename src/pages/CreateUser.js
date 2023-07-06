@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { Input, DatePicker, Button, Alert } from 'antd';
 import axios from "axios";
 
 import '../styles/CreateUser.css';
 
 const CreateUser = () => {
+    const navigate = useNavigate();
     const [name, setName] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState(null);
     const [nicNumber, setNicNumber] = useState('');
@@ -107,6 +109,7 @@ const CreateUser = () => {
 
                 console.log(customer)
                 await axios.post(`http://localhost:8080/api/customers`, customer);
+                navigate('/dashboard');
             }catch (err){
                 console.error(err)
             }
