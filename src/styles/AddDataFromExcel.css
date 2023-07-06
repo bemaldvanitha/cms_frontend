@@ -1,0 +1,32 @@
+.file-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.file-input {
+    margin-bottom: 15px;
+    background-color: beige;
+    padding: 8px;
+}
+
+.upload-button {
+    padding: 10px 20px;
+    background-color: #DAA520;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    height: 40px;
+}
+
+.upload-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.upload-message {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
