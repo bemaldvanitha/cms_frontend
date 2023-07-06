@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
-import axios from "axios";
 
 import '../styles/SingleUser.css';
+
+import InfoItem from "../components/InfoItem";
+import { fetchUserData } from '../helpers/fetchOneRecord';
 
 const SingleUser = () => {
     const { id } = useParams();
@@ -13,55 +15,19 @@ const SingleUser = () => {
     const [familyMembers, setFamilyMembers] = useState([]);
     const [telephoneNumbers, setTelephoneNumbers] = useState([]);
 
-    const fetchUserData = async () => {
-        try{
-            const response = await axios.get(`http://localhost:8080/api/customers/${id}`);
-            const data = response.data;
-
-            setName(data.name);
-            setDateOfBirth(data.dateOfBirth);
-            setNicNumber(data.nicNumber);
-
-            let formatAddress = [];
-            data.addresses.forEach(addr => {
-                const address = {
-                    id: addr.id,
-                    addressLine1: addr.addressLine1,
-                    addressLine2: addr.addressLine2,
-                    city: addr.city.name,
-                    country: addr.country.name
-                }
-                formatAddress.push(address)
-            });
-            setAddresses(formatAddress);
-
-            let formatFamilyMembers = [];
-            data.familyMembers.forEach(family => {
-                const familyMember = {
-                    id: family.id,
-                    name: family.name
-                }
-                formatFamilyMembers.push(familyMember);
-            });
-            setFamilyMembers(formatFamilyMembers);
-
-            let formatTelephoneNumber = [];
-            data.telephoneNumbers.forEach(tele => {
-                const phone = {
-                    id: tele.id,
-                    number: tele.number
-                }
-                formatTelephoneNumber.push(phone);
-            });
-            setTelephoneNumbers(formatTelephoneNumber);
-            //console.log(name, nicNumber, dateOfBirth, addresses, familyMembers, telephoneNumbers)
-        }catch (err){
-            console.error(err);
-        }
+    const fetchSingleUserData = async () => {
+        const { name, nic, birthDay, formatTelephoneNumber, formatAddress, formatFamilyMembers } = await fetchUserData(id);
+        setName(name);
+        setNicNumber(nic);
+        setDateOfBirth(birthDay);
+        setTelephoneNumbers(formatTelephoneNumber);
+        setAddresses(formatAddress);
+        setFamilyMembers(formatFamilyMembers);
     }
 
+
     useEffect(() => {
-        fetchUserData();
+        fetchSingleUserData();
     },[id]);
 
     return(
@@ -71,18 +37,9 @@ const SingleUser = () => {
             </div>
             <div className="personal-info">
                 <h2>Personal Information</h2>
-                <div className="info-item">
-                    <p className="info-label">Name</p>
-                    <p className="info-value">{name}</p>
-                </div>
-                <div className="info-item">
-                    <p className="info-label">NIC Number</p>
-                    <p className="info-value">{nicNumber}</p>
-                </div>
-                <div className="info-item">
-                    <p className="info-label">Date of Birth</p>
-                    <p className="info-value">{dateOfBirth}</p>
-                </div>
+                <InfoItem label={'Name'} value={name}/>
+                <InfoItem label={'NIC Number'} value={nicNumber}/>
+                <InfoItem label={'Date of Birth'} value={dateOfBirth}/>
             </div>
             <div className="section">
                 <h2>Addresses</h2>

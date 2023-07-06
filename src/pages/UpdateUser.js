@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {Alert, Button, DatePicker, Input} from "antd";
+import { Alert, Button, DatePicker, Input } from "antd";
 
 import '../styles/SingleUser.css';
+
+import CustomAlert from "../components/CustomAlert";
 
 const UpdateUser = () => {
     const { id } = useParams();
@@ -127,15 +129,7 @@ const UpdateUser = () => {
 
     return(
         <div className="form-container">
-            {showAlert && (
-                <Alert
-                    message="Validation Error"
-                    description="Name, Birth date are required"
-                    type="error"
-                    showIcon
-                    style={{ marginBottom: '1rem' }}
-                />
-            )}
+            {showAlert && <CustomAlert description={'Name, Birth date are required'}/>}
 
             <div className="form-row">
                 <Input placeholder={"enter your name"} id="name" value={name} onChange={handleNameChange} />
@@ -144,7 +138,7 @@ const UpdateUser = () => {
             <div className="form-row cus-row">
                 <DatePicker placeholder={'select your birth day'} id="dateOfBirth" value={birthDay}
                             onChange={handleDateOfBirthChange} />
-                { dateOfBirth }
+                <span className={'birthday'}>{ dateOfBirth }</span>
             </div>
 
             <div className="form-row">

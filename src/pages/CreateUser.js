@@ -5,6 +5,8 @@ import axios from "axios";
 
 import '../styles/CreateUser.css';
 
+import CustomAlert from "../components/CustomAlert";
+
 const CreateUser = () => {
     const navigate = useNavigate();
     const [name, setName] = useState('');
@@ -118,15 +120,8 @@ const CreateUser = () => {
 
     return(
         <div className="form-container">
-            {showAlert && (
-                <Alert
-                    message="Validation Error"
-                    description="Name, Birth date, NIC number are required"
-                    type="error"
-                    showIcon
-                    style={{ marginBottom: '1rem' }}
-                />
-            )}
+            {showAlert && <CustomAlert description={'Name, Birth date, NIC number are required'}/>}
+
             <div className="form-row">
                 <Input placeholder={"enter your name"} id="name" value={name} onChange={handleNameChange} />
             </div>

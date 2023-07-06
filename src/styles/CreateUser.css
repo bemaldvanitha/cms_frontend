@@ -26,6 +26,10 @@
     align-items: center;
 }
 
+.birthday{
+    padding-top: 10px;
+}
+
 .form-row label {
     margin-bottom: 0.5rem;
     font-weight: bold;
