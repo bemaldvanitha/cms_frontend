@@ -1,0 +1,110 @@
+.user-data {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 300px;
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333333;
+    margin: 0;
+}
+
+.personal-info {
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #555555;
+    margin-bottom: 20px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    text-align: left;
+    min-width: 200px;
+}
+
+.info-label {
+    font-weight: bold;
+    flex-basis: 150px;
+    color: #888888;
+    margin-right: 10px;
+}
+
+.info-value {
+    flex-grow: 1;
+    color: #333333;
+    margin: 0;
+    width: 150px;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.address-item,
+.family-member-item,
+.telephone-item {
+    background-color: #FFCCB3;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.address-item p,
+.family-member-item p,
+.telephone-item p {
+    margin: 0;
+}
+
+.address-item strong,
+.family-member-item strong,
+.telephone-item strong {
+    font-weight: bold;
+}
+
+.address-item p {
+    margin: 10px 0;
+}
+
+.address-value {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+@media (max-width: 768px) {
+    .info-item {
+        flex-wrap: wrap;
+    }
+
+    .info-label {
+        flex-basis: 100%;
+        margin-bottom: 5px;
+    }
+
+    .info-value {
+        flex-basis: 100%;
+    }
+}
